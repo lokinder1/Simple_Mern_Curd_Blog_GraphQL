@@ -1,4 +1,4 @@
-# SIMPLE_MERN_GRAPHQL
+# SIMPLE_MERN_CURD_BLOG_GRAPHQL
 It's a simple example or demo project of blog that do basic graphql curd operation
 it's made by using following frontend technologies
 - ReactJS
