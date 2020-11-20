@@ -16,7 +16,6 @@ import React, { useEffect, useState } from "react";
 import { useSnackbar } from "notistack";
 import { gql, useQuery, useMutation } from "@apollo/client";
 
-
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.primary.light,
@@ -47,24 +46,23 @@ const useStyles = makeStyles({
   },
 });
 
-
 const GET_ALL_POSTS = gql`
-{
-  getPosts {
-    id
-    title
-    content
+  {
+    getPosts {
+      id
+      title
+      content
+    }
   }
-}
 `;
 
 const DELETE_POST = gql`
-mutation deletePost($id: ID!){
-  deletePost(_id: $id){
-    id,
-    title
+  mutation deletePost($id: ID!) {
+    deletePost(_id: $id) {
+      id
+      title
+    }
   }
-}
 `;
 
 export default function ListPosts() {
@@ -79,13 +77,12 @@ export default function ListPosts() {
 
   const [deletePost] = useMutation(DELETE_POST, {
     onCompleted(data) {
-        enqueueSnackbar("Post Deleted Successfully", { variant: "success" });
+      enqueueSnackbar("Post Deleted Successfully", { variant: "success" });
     },
-    onError(err){
-        enqueueSnackbar("Post Deletion Failed", { variant: "error" });
-    }
+    onError(err) {
+      enqueueSnackbar("Post Deletion Failed", { variant: "error" });
+    },
   });
-
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -97,22 +94,19 @@ export default function ListPosts() {
   };
 
   async function getAllPosts() {
-
-    
-    if (loading) return 'Loading...';
+    if (loading) return "Loading...";
     if (error) return `Error! ${error.message}`;
-
-
- 
 
     console.log(data);
     setPosts(data.getPosts);
   }
 
   function deletePostByID(id) {
-
-
-    deletePost({variables: {id}});
+    deletePost({
+      variables: { id },
+      refetchQueries: [{ query: GET_ALL_POSTS }],
+      awaitRefetchQueries: true,
+    });
   }
 
   useEffect(() => {

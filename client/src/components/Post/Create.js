@@ -51,6 +51,16 @@ export default function CreatePost() {
     }
   `;
 
+  const GET_ALL_POSTS = gql`
+  {
+    getPosts {
+      id
+      title
+      content
+    }
+  }
+  `;
+
   const [createPosts] = useMutation(CREATE_POST, {
     onCompleted(data) {
         enqueueSnackbar("Post Created Successfully", { variant: "success" });
@@ -70,7 +80,10 @@ export default function CreatePost() {
 
     console.log(post);
 
-    createPosts({ variables: { post } });
+    createPosts({ variables: { post } ,
+      refetchQueries: [{ query: GET_ALL_POSTS }],
+      awaitRefetchQueries: true,
+    });
    }
 
   return (
