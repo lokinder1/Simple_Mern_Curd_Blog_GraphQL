@@ -1,18 +1,14 @@
-import React, { Fragment } from "react";
-
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
-import ListPosts from "./components/Post/List";
+import PersonalFooter from "@bit/lokinder1.footers.personal-footer";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
+import HomeIcon from "@material-ui/icons/Home";
+import React from "react";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import CreatePost from "./components/Post/Create";
 import EditPost from "./components/Post/Edit";
+import ListPosts from "./components/Post/List";
 import ViewPost from "./components/Post/View";
-
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import HomeIcon from "@material-ui/icons/Home";
-
-import Button from "@material-ui/core/Button";
-import PersonalFooter from "@bit/lokinder1.footers.personal-footer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,8 +16,7 @@ const useStyles = makeStyles((theme) => ({
     "overflow-x": "hidden",
   },
   main: {
-    marginBottom: "-1px",
-    minHeight: "88vh",
+    minHeight: "calc(100vh - 120px)",
   },
   paper: {
     height: 140,
@@ -78,7 +73,7 @@ export default function Home() {
             </Route>
           </Switch>
         </div>
-          <PersonalFooter />
+        <PersonalFooter />
       </div>
     </Router>
   );

@@ -1,3 +1,4 @@
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { green, red } from "@material-ui/core/colors";
 import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
@@ -12,9 +13,8 @@ import TableRow from "@material-ui/core/TableRow";
 import DeleteForeverTwoToneIcon from "@material-ui/icons/DeleteForeverTwoTone";
 import EditTwoToneIcon from "@material-ui/icons/EditTwoTone";
 import VisibilityTwoToneIcon from "@material-ui/icons/VisibilityTwoTone";
-import React, { useEffect, useState } from "react";
 import { useSnackbar } from "notistack";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import React, { useEffect, useState } from "react";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -72,7 +72,7 @@ export default function ListPosts() {
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const { loading, error, data } = useQuery(GET_ALL_POSTS);
 
   const [deletePost] = useMutation(DELETE_POST, {

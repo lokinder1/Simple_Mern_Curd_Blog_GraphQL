@@ -7,7 +7,7 @@ import Home from './home'
 
 
 
-export default () => (
+const App = () => (
   <ThemeProvider theme={theme}>
     <SnackbarProvider maxSnack={3}>
       <CssBaseline />
@@ -17,3 +17,5 @@ export default () => (
     </SnackbarProvider>
   </ThemeProvider>
 );
+
+export default App;

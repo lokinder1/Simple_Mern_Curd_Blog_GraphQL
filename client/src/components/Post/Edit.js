@@ -1,3 +1,4 @@
+import { gql, useLazyQuery, useMutation } from "@apollo/client";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -7,9 +8,6 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
-import { gql, useMutation, useQuery, useLazyQuery } from "@apollo/client";
-
-
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -58,23 +56,20 @@ export default function EditPost() {
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
 
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-
+  const { enqueueSnackbar } = useSnackbar();
 
   const [updatePosts] = useMutation(UPDATE_POST, {
     onCompleted(data) {
-        enqueueSnackbar("Post Updated Successfully", { variant: "success" });
+      enqueueSnackbar("Post Updated Successfully", { variant: "success" });
     },
-    onError(err){
-        enqueueSnackbar("Post Deletion Failed", { variant: "error" });
-    }
+    onError(err) {
+      enqueueSnackbar("Post Deletion Failed", { variant: "error" });
+    },
   });
 
   const [getPost, { loading, data }] = useLazyQuery(GET_POST);
 
-
   async function loadPost() {
-
     var urlParams = new URLSearchParams(window.location.search);
 
     if (loading) return "Loading...";
@@ -87,7 +82,6 @@ export default function EditPost() {
       setTitle(data.getPost.title);
       setContent(data.getPost.content);
     }
-
   }
 
   useEffect(() => {

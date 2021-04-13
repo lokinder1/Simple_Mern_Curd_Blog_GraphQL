@@ -4,9 +4,10 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "apollo-server-express": "^2.18.2",
+    "apollo-server-express": "^2.22.2",
     "express": "^4.17.1",
-    "mongoose": "^5.10.9"
+    "graphql": "^15.5.0",
+    "mongoose": "^5.12.3"
   },
   "devDependencies": {},
   "scripts": {

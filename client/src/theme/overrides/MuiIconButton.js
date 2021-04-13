@@ -1,6 +1,6 @@
 import palette from '../palette';
 
-export default {
+const MuilconButton = {
   root: {
     color: palette.icon,
     '&:hover': {
@@ -8,3 +8,5 @@ export default {
     }
   }
 };
+
+export default MuilconButton;

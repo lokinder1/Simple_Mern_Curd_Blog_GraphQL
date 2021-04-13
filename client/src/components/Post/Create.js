@@ -1,3 +1,4 @@
+import { gql, useMutation } from "@apollo/client";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -5,11 +6,8 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import React, { useState } from "react";
-import { gql, useMutation } from "@apollo/client";
-
 import { useSnackbar } from "notistack";
-
+import React, { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,8 +36,7 @@ export default function CreatePost() {
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
 
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-
+  const { enqueueSnackbar } = useSnackbar();
 
   const CREATE_POST = gql`
     mutation createPost($post: PostInput!) {
@@ -52,22 +49,22 @@ export default function CreatePost() {
   `;
 
   const GET_ALL_POSTS = gql`
-  {
-    getPosts {
-      id
-      title
-      content
+    {
+      getPosts {
+        id
+        title
+        content
+      }
     }
-  }
   `;
 
   const [createPosts] = useMutation(CREATE_POST, {
     onCompleted(data) {
-        enqueueSnackbar("Post Created Successfully", { variant: "success" });
+      enqueueSnackbar("Post Created Successfully", { variant: "success" });
     },
-    onError(err){
-        enqueueSnackbar("Post Creation Failed", { variant: "error" });
-    }
+    onError(err) {
+      enqueueSnackbar("Post Creation Failed", { variant: "error" });
+    },
   });
 
   function onSubmit(e) {
@@ -80,11 +77,12 @@ export default function CreatePost() {
 
     console.log(post);
 
-    createPosts({ variables: { post } ,
+    createPosts({
+      variables: { post },
       refetchQueries: [{ query: GET_ALL_POSTS }],
       awaitRefetchQueries: true,
     });
-   }
+  }
 
   return (
     <Container component="main">
